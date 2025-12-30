@@ -10,16 +10,13 @@ const map = new maplibregl.Map({
 });
 
 map.on("load", () => {
-  const demSource = new mlcontour.DemSource({
-    url: "https://gbank.gsj.jp/seamless/elev/terrainRGB/gebco/{z}/{y}/{x}.png",
-    encoding: "mapbox",
-    minzoom: 0,
-    maxzoom: 19,
-    worker: true,
-    cacheSize: 100,
-    timeoutMs: 30_000,
-  });
-  demSource.setupMaplibre(maplibregl);
+    map.addSource("terrain", {
+      type: "raster-dem",
+      tiles: ["https://gbank.gsj.jp/seamless/elev/terrainRGB/gebco/{z}/{y}/{x}.png"],
+      tileSize: 256,
+      maxzoom: 9,
+      attribution: "<a href='https://tiles.gsj.jp/tiles/elev/tiles.html#h_gebco' target='_blank'>GEBCO Grid (via Geological Survey of Japan, AIST)</a>",
+    });
 
-  map.addControl(new Terrain3dToggle(demSource), "top-left");
+  map.addControl(new Terrain3dToggle({ sourceName : "terrain" }), "top-left");
 });

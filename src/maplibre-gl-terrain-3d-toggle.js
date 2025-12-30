@@ -2,8 +2,8 @@ import UIManager from "./UIManager.js";
 import EventManager from "./EventManager.js";
 
 class Terrain3dToggle {
-  constructor(demSource) {
-    this.demSource = demSource;
+  constructor({ sourceName = "terrain" }) {
+    this.sourceName = sourceName;
 
     this.map = null;
     this.container = null;
@@ -15,12 +15,6 @@ class Terrain3dToggle {
   }
 
   initializeTerrain() {
-    this.map.addSource("terrain", {
-      type: "raster-dem",
-      tiles: [this.demSource.sharedDemProtocolUrl],
-      tileSize: 256,
-    });
-
     const sky = {
       "sky-color": "#199EF3",
       "sky-horizon-blend": 0.5,
@@ -48,7 +42,7 @@ class Terrain3dToggle {
     if (isNaN(exaggeration) || exaggeration <= 0) return;
 
     this.map.setTerrain({
-      source: "terrain",
+      source: this.sourceName,
       exaggeration: exaggeration,
     });
   }
