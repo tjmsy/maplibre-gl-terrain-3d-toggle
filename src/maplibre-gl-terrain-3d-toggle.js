@@ -2,9 +2,14 @@ import UIManager from "./UIManager.js";
 import EventManager from "./EventManager.js";
 
 class Terrain3dToggle {
-  constructor({ sourceName = "terrain", initialExaggeration = 1 }) {
+  constructor({
+    sourceName = "terrain",
+    initialExaggeration = 1,
+    initialVisible = false,
+  }) {
     this.sourceName = sourceName;
     this.terrainExaggeration = initialExaggeration;
+    this.terrainVisible = initialVisible;
 
     this.map = null;
     this.container = null;
@@ -33,6 +38,7 @@ class Terrain3dToggle {
     );
 
     exaggerationInput.value = this.terrainExaggeration;
+    terrainCheckbox.checked = this.terrainVisible;
 
     terrainCheckbox.addEventListener("change", (e) => {
       if (e.target.checked) this.updateTerrainExaggeration();
@@ -44,6 +50,7 @@ class Terrain3dToggle {
       if (isNaN(val) || val <= 0) return;
 
       if (!terrainCheckbox.checked) terrainCheckbox.checked = true;
+      this.terrainExaggeration = val;
       this.updateTerrainExaggeration();
     });
   }
@@ -98,6 +105,13 @@ class Terrain3dToggle {
     this.map = map;
     this.createUI();
     this.attachEventListeners();
+
+    if (this.terrainVisible) {
+      this.updateTerrainExaggeration();
+    } else {
+      this.map.setTerrain(null);
+    }
+
     return this.container;
   }
 

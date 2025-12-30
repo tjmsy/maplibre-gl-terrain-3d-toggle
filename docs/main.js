@@ -22,7 +22,11 @@ map.on("load", () => {
   });
 
   map.addControl(
-    new Terrain3dToggle({ sourceName: "terrain", initialExaggeration: 1.5 }),
+    new Terrain3dToggle({
+      sourceName: "terrain",
+      initialExaggeration: 2,
+      initialVisible: true,
+    }),
     "top-left"
   );
 });
