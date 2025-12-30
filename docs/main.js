@@ -1,4 +1,4 @@
-import Terrain3dToggle from "https://cdn.jsdelivr.net/gh/tjmsy/maplibre-gl-terrain-3d-toggle/src/maplibre-gl-terrain-3d-toggle.js";
+import Terrain3dToggle from "https://cdn.jsdelivr.net/gh/tjmsy/maplibre-gl-terrain-3d-toggle@0.1/src/maplibre-gl-terrain-3d-toggle.js";
 
 const map = new maplibregl.Map({
   container: "map",
