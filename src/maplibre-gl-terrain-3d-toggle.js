@@ -14,29 +14,6 @@ class Terrain3dToggle {
     this.isOutsideClickListenerActive = false;
   }
 
-  initializeTerrain() {
-    const sky = {
-      "sky-color": "#199EF3",
-      "sky-horizon-blend": 0.5,
-      "horizon-color": "#ffffff",
-      "horizon-fog-blend": 0.5,
-      "fog-color": "#0000ff",
-      "fog-ground-blend": 0.8,
-      "atmosphere-blend": [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        0,
-        1,
-        10,
-        1,
-        12,
-        0,
-      ],
-    };
-    this.map.setSky(sky);
-  }
-
   updateTerrainExaggeration() {
     const exaggeration = parseFloat(this.terrainExaggeration);
     if (isNaN(exaggeration) || exaggeration <= 0) return;
@@ -113,7 +90,6 @@ class Terrain3dToggle {
     this.map = map;
     this.createUI();
     this.attachEventListeners();
-    this.initializeTerrain();
     return this.container;
   }
 
