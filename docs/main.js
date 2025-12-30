@@ -10,13 +10,19 @@ const map = new maplibregl.Map({
 });
 
 map.on("load", () => {
-    map.addSource("terrain", {
-      type: "raster-dem",
-      tiles: ["https://gbank.gsj.jp/seamless/elev/terrainRGB/gebco/{z}/{y}/{x}.png"],
-      tileSize: 256,
-      maxzoom: 9,
-      attribution: "<a href='https://tiles.gsj.jp/tiles/elev/tiles.html#h_gebco' target='_blank'>GEBCO Grid (via Geological Survey of Japan, AIST)</a>",
-    });
+  map.addSource("terrain", {
+    type: "raster-dem",
+    tiles: [
+      "https://gbank.gsj.jp/seamless/elev/terrainRGB/gebco/{z}/{y}/{x}.png",
+    ],
+    tileSize: 256,
+    maxzoom: 9,
+    attribution:
+      "<a href='https://tiles.gsj.jp/tiles/elev/tiles.html#h_gebco' target='_blank'>GEBCO Grid (via Geological Survey of Japan, AIST)</a>",
+  });
 
-  map.addControl(new Terrain3dToggle({ sourceName : "terrain" }), "top-left");
+  map.addControl(
+    new Terrain3dToggle({ sourceName: "terrain", initialExaggeration: 1.5 }),
+    "top-left"
+  );
 });

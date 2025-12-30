@@ -2,15 +2,15 @@ import UIManager from "./UIManager.js";
 import EventManager from "./EventManager.js";
 
 class Terrain3dToggle {
-  constructor({ sourceName = "terrain" }) {
+  constructor({ sourceName = "terrain", initialExaggeration = 1 }) {
     this.sourceName = sourceName;
+    this.terrainExaggeration = initialExaggeration;
 
     this.map = null;
     this.container = null;
     this.uiManager = new UIManager();
     this.eventManager = new EventManager();
 
-    this.terrainExaggeration = 1;
     this.isOutsideClickListenerActive = false;
   }
 
@@ -25,8 +25,14 @@ class Terrain3dToggle {
   }
 
   setupTerrainToggleSync() {
-    const terrainCheckbox = this.container.querySelector("#terrain-toggle-checkbox");
-    const exaggerationInput = this.container.querySelector("#terrain-exaggeration-input");
+    const terrainCheckbox = this.container.querySelector(
+      "#terrain-toggle-checkbox"
+    );
+    const exaggerationInput = this.container.querySelector(
+      "#terrain-exaggeration-input"
+    );
+
+    exaggerationInput.value = this.terrainExaggeration;
 
     terrainCheckbox.addEventListener("change", (e) => {
       if (e.target.checked) this.updateTerrainExaggeration();
@@ -67,16 +73,18 @@ class Terrain3dToggle {
       }
     );
 
-    inputConfig.forEach(({ elementId, property, updateMethod, tooltipElementId }) => {
-      const inputElement = this.container.querySelector(elementId);
-      const tooltipElement = this.container.querySelector(tooltipElementId);
+    inputConfig.forEach(
+      ({ elementId, property, updateMethod, tooltipElementId }) => {
+        const inputElement = this.container.querySelector(elementId);
+        const tooltipElement = this.container.querySelector(tooltipElementId);
 
-      this.eventManager.addInputListener(inputElement, (value) => {
-        this[property] = value;
-        updateMethod();
-      });
-      this.eventManager.addTooltipListeners(inputElement, tooltipElement);
-    });
+        this.eventManager.addInputListener(inputElement, (value) => {
+          this[property] = value;
+          updateMethod();
+        });
+        this.eventManager.addTooltipListeners(inputElement, tooltipElement);
+      }
+    );
 
     this.setupTerrainToggleSync();
   }
