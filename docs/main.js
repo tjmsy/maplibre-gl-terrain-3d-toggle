@@ -25,7 +25,7 @@ map.on("load", () => {
     new Terrain3dToggle({
       sourceName: "terrain",
       initialExaggeration: 2,
-      initialVisible: true,
+      initialTerrain: true,
     }),
     "top-left"
   );

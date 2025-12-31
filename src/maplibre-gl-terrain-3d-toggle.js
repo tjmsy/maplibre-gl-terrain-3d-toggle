@@ -5,11 +5,11 @@ class Terrain3dToggle {
   constructor({
     sourceName = "terrain",
     initialExaggeration = 1,
-    initialVisible = false,
+    initialTerrain = false,
   }) {
     this.sourceName = sourceName;
     this.terrainExaggeration = initialExaggeration;
-    this.terrainVisible = initialVisible;
+    this.terrainVisible = initialTerrain;
 
     this.map = null;
     this.container = null;
